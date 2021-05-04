@@ -2,24 +2,24 @@
   "accounts": [
     {
       "account_id": 1,
-      "email": "",
-      "nickname": "",
-      "password": "",
-      "confirmPassword": ""
+      "email": "hyewon@google.com",
+      "nickname": "혜원",
+      "password": "12345678",
+      "confirmPassword": "12345678"
     },
     {
-      "account_id": 1,
-      "email": "",
-      "nickname": "",
-      "password": "",
-      "confirmPassword": ""
+      "account_id": 2,
+      "email": "hyewon2@google.com",
+      "nickname": "혜원",
+      "password": "12345678",
+      "confirmPassword": "12345678"
     },
     {
-      "account_id": 1,
-      "email": "",
-      "nickname": "",
-      "password": "",
-      "confirmPassword": ""
+      "account_id": 3,
+      "email": "hyewon3@google.com",
+      "nickname": "혜원",
+      "password": "12345678",
+      "confirmPassword": "12345678"
     }
   ],
   "login": {
