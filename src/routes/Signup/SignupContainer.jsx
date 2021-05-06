@@ -1,101 +1,77 @@
-import React from "react";
-import styled from 'styled-components';
-import { useForm } from "react-hook-form";
+import React, {useState} from "react";
 
+import SignupPresenter from './SignupPresenter';
 
-const SignupFrom = styled.form`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-`
+import { isEmail, isNickname, isPassword, isConfirmPassword } from '../../components/Validation';
 
-const Label = styled.label``
-const Input = styled.input``
+import { useDispatch, useStore } from 'react-redux';
+
+import { requestSignup } from "../../redux/actions";
+
 
 export default function SignupContainer() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const [iEmail, setIEmail] = useState("")
+  const [iNickname, setINickname] = useState("")
+  const [iPassword, setIPassword] = useState("")
+  const [iConfirmPassword, setIConfromPassword] = useState("")
+  const [error, setError] = useState({
+    email:"",
+    nickname:"",
+    password:"",
+    confirmPassword:""
+  })
 
-  const checkPassword = (password, confirmPassword) => {
-    if (password === confirmPassword){
-      return true;
-    } else {
-      return false;
+
+  const handleChange = (e) => {
+    const id = e.target.id;
+    if(id === "email"){
+      setIEmail(e.target.value)
+      setError({
+        ...error,
+        email: isEmail(iEmail)
+    })}
+    
+    if(id === "nickname"){
+      setINickname(e.target.value)
+      setError({
+        ...error,
+        nickname: isNickname(iNickname)
+      })}
+
+    if(id === "password"){
+      setIPassword(e.target.value)
+      setError({
+        ...error,
+        password: isPassword(iPassword)
+    })} 
+    
+    if(id === "confirmPassword"){  
+      setIConfromPassword(e.target.value)
+      console.log(iConfirmPassword)   
+      setError({
+        ...error,
+        confirmPassword: isConfirmPassword(iPassword, iConfirmPassword)
+      }) 
     }
+    console.log(error);
+    
   }
 
-  const onSubmit = data => {
-    const { email, nickname, password, confirmPassword} = data;
-    const Password = checkPassword(password,confirmPassword)
-      
-    if (Password){
-      console.log(true)
-    } else{
-      console.log(false)
-    }
-    
-    reset();
+  const handleEmail = () =>{
+    console.log(iEmail);
   };
 
-  return (
-    <SignupFrom onSubmit={handleSubmit(onSubmit)}>
-      <Label htmlFor="email">email</Label>
-      <Input
-        id="email"
-        {...register("email", {
-          required: "required",
-          pattern: {
-            value: /\S+@\S+.\S+/,
-            message: "Entered value does not match email format"
-          }
-        })}
-        type="email"
-      />
-      {errors.email && <span role="alert">{errors.email.message}</span>}
-      <Label htmlFor="nickname">nickname</Label>
-      <Input
-        id="nickname"
-        {...register("nickname", {
-          required: "required",
-          minLength: {
-            value: 2,
-            message: "min length is 2"
-          },
-          maxLength: {
-            value: 8,
-            message: "max length is 8"
-          }
-        })}
-        type="text"
-      />
-      {errors.nickname && <span role="alert">{errors.nickname.message}</span>}
-      <Label htmlFor="password">password</Label>
-      <Input
-        id="password"
-        {...register("password", {
-          required: "required",
-          minLength: {
-            value: 8,
-            message: "min length is 8"
-          },
-          maxLength: {
-            value: 20,
-            message: "max length is 20"
-          }
-        })}
-        type="password"
-      />
-      {errors.password && <span role="alert">{errors.password.message}</span>}
-      <Label htmlFor="confirmPassword">confirmPassword</Label>
-      <Input
-        id="confirmPassword"
-        {...register("confirmPassword", {
-          required: "required",
-        })}
-        type="password"
-      />
-      {errors.confirmPassword && <span role="alert">{errors.confirmPassword.message}</span>}
-      <button type="submit">SUBMIT</button>
-    </SignupFrom>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const account_id = 4
+  };
+
+  return(
+    <SignupPresenter
+    onChange={handleChange}
+    onSubmit={handleSubmit}
+    error={error}
+    onEmail={handleEmail}
+    />
   );
 }

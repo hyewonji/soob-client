@@ -1,12 +1,15 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Signup from '../routes/Signup';
 
-export default () => {
+function Router (){
     return(
-        <Router>
+        <BrowserRouter>
             <Switch>
                 <Route path = '/' exact={true} component={Signup}></Route>
             </Switch>
-        </Router>
+        </BrowserRouter>
     )
 }
+
+export default Router;
