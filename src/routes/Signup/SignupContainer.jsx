@@ -1,12 +1,16 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import SignupPresenter from './SignupPresenter';
 
 import { isEmail, isNickname, isPassword, isConfirmPassword } from '../../components/Validation';
 
+import axios from 'axios';
+
 import { useDispatch, useStore } from 'react-redux';
 
 import { requestSignup } from "../../redux/actions";
+
+import { url } from '../../api';
 
 
 export default function SignupContainer() {
@@ -20,8 +24,6 @@ export default function SignupContainer() {
     password:"",
     confirmPassword:""
   })
-
-
   const handleChange = (e) => {
     const id = e.target.id;
     if(id === "email"){
@@ -53,12 +55,15 @@ export default function SignupContainer() {
         confirmPassword: isConfirmPassword(iPassword, iConfirmPassword)
       }) 
     }
-    console.log(error);
     
   }
 
   const handleEmail = () =>{
-    console.log(iEmail);
+    axios.get(url+iEmail)
+    .then(response => {
+      console.log(response)
+      console.log(response.status);
+    })
   };
 
   const handleSubmit = (e) => {
