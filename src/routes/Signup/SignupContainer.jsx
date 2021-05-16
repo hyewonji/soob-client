@@ -59,7 +59,7 @@ export default function SignupContainer() {
   }
 
   const handleEmail = () =>{
-    axios.get(url+iEmail)
+    axios.get(url+"api/v1/accounts/send-signup-email/"+iEmail)
     .then(response => {
       console.log(response)
       console.log(response.status);
@@ -68,7 +68,16 @@ export default function SignupContainer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const account_id = 4
+    axios.post(url+"/api/v1/accounts",{
+      body :{
+        "confirmPassword": iConfirmPassword,
+        "email": iEmail,
+        "nickname": iNickname,
+        "password": iPassword
+      }
+    }).then(response => {
+      console.log(response)
+    })
   };
 
   return(
